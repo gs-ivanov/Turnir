@@ -1,0 +1,52 @@
+﻿@model AddTeamFormModel
+
+
+@{
+    ViewData["Title"] = "Add Team";
+
+}
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <h2 class="heading-margin text-center">Add Team</h2>
+
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" placeholder="BMW, Mercedes, etc..." value="Team ">
+                <span asp-validation-for="Name" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="City"></label> 
+                <input asp-for="City" class="form-control" placeholder="640D, S-Class, etc..." value="City ">
+                <span asp-validation-for="City" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" rows="4" class="form-control" placeholder="This is the perfect team..." ></textarea>
+                <span asp-validation-for="Description" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TeamLogo"></label>
+                <input asp-for="TeamLogo" class="form-control" placeholder="Your fine URL here..." value="/teams/chernomore.png">
+                <span asp-validation-for="TeamLogo" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Year"></label>
+                <input asp-for="Year" class="form-control" placeholder="@DateTime.UtcNow.Year" value="2025">
+                <span asp-validation-for="Year" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupId"></label>
+                <select asp-for="GroupId" class="form-control">
+                    @foreach (var group in Model.Groups)
+                     {
+                       <option value="@group.Id">@group.Name</option>
+                     }
+                </select>
+            </div>
+
+            <input class="btn btn-primary" type="submit" value="Save" />
+        </form>
+    </div>
+</div>
