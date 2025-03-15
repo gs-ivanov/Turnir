@@ -28,14 +28,14 @@
 
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
-       @if (firstTeam != null)
+        @if (firstTeam != null)
         {
-        <div class="carousel-item active">
-            <img class="d-block w-100" src="@firstTeam.TeamLogo" alt="@firstTeam.Name @firstTeam.City">
-            <div class="carousel-caption d-none d-md-block">
-                <h5><a class="btn btn-primary" asp-controller="Teams" asp-action="Details" asp-route-id="@firstTeam.Id">@firstTeam.Name @firstTeam.City Points: @firstTeam.PointsWin</a></h5>
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="@firstTeam.TeamLogo" alt="@firstTeam.Name @firstTeam.City">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5><a class="btn btn-primary" asp-controller="Teams" asp-action="Details" asp-route-id="@firstTeam.Id">@firstTeam.Name @firstTeam.City Points: @firstTeam.PointsWin</a></h5>
+                </div>
             </div>
-        </div>
         }
         <div class="carousel-item">
             @if (secondTeam != null)
@@ -47,7 +47,7 @@
             }
         </div>
         <div class="carousel-item">
-            @if (thirdTeam!=null)
+            @if (thirdTeam != null)
             {
                 <img class="d-block w-100" src="@thirdTeam.TeamLogo" alt="@thirdTeam.Name @thirdTeam.City">
                 <div class="carousel-caption d-none d-md-block">
@@ -65,4 +65,20 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
+</div>
+
+<div class="mb-5"></div>
+
+<div class="jumbotron">
+    <div class="row">
+        <h2 class="col-md-4 text-center">
+            @Model.TotalTeams Cars
+        </h2>
+        <h2 class="col-md-4 text-center" ">
+            @Model.TotalUsers Users
+        </h2>
+        <h2 class="col-md-4 text-center" ">
+            @Model.TotalRents XXXX
+        </h2>
+    </div>
 </div>

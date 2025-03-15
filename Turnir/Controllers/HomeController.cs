@@ -29,9 +29,9 @@
                     Name = t.Name,
                     City = t.City,
                     Year = t.Year,
-                    TeamLogo = t.TeamLogo
-                    //PointsWin=t.PointsWin
-                    //PointsLost=t.PointLost
+                    TeamLogo = t.TeamLogo,
+                    PointsWin = t.PointsWin,
+                    PointsLost = t.PointsLost
                 })
                 .Take(3)
                 .ToList();

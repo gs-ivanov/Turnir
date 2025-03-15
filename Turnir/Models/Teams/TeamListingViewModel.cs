@@ -12,6 +12,10 @@
 
         public int Year { get; init; }
 
+        public int PointsWin { get; init; }
+
+        public int PointsLost { get; init; }
+
         public string Group { get; init; }
     }
 }

@@ -29,7 +29,14 @@
         public string TeamLogo { get; init; }
 
         [Range(YearMinValue, YearMaxValue)]
+        [Display(Name = "Team established at Year:")]
         public int Year { get; init; }
+
+        [Display(Name = "Winning points:")]
+        public int PointsWin { get; init; }
+
+        [Display(Name = "Lost points:")]
+        public int PointsLost { get; init; }
 
         [Display(Name = "Group")]
         public int GroupId { get; init; }

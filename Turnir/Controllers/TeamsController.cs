@@ -48,6 +48,8 @@
                     City = t.City,
                     Year = t.Year,
                     TeamLogo = t.TeamLogo,
+                    PointsWin=t.PointsWin,
+                    PointsLost=t.PointsLost,
                     Group = t.Group.Name
                 })
                  .ToList();
@@ -93,6 +95,8 @@
                 Description = team.Description,
                 TeamLogo = team.TeamLogo,
                 Year = team.Year,
+                PointsWin=team.PointsWin,
+                PointsLost=team.PointsLost,
                 GroupId = team.GroupId,
             };
 
