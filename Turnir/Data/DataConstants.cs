@@ -30,5 +30,15 @@
         {
             public const int NameMaxLength = 25;
         }
+
+        public class Trener
+        {
+            public const int NameMaxLength = 25;
+
+            public const int PhoneNumberMaxLength = 30;
+        }
+
+
+        
     }
 }

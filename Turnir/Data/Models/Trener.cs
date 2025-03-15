@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using static DataConstants.Group;
+    using static DataConstants.Trener;
 
     public class Trener
     {
@@ -14,6 +14,11 @@
         public string Name { get; set; }
 
         public int TeamId { get; init; }
+
+        [Required]
+        [MaxLength(PhoneNumberMaxLength)]
+        public string PhoneNumber { get; set; }
+
 
         [Required]
         public string UserId { get; set; }

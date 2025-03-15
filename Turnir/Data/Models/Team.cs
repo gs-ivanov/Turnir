@@ -34,5 +34,9 @@
 
         public Group Group { get; init; }
 
+        public int TrenerId { get; init; }
+
+        public Trener Trener { get; init; }
+
     }
 }
