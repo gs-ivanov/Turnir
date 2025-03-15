@@ -261,6 +261,12 @@ namespace Turnir.Data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<int>("PointsLost")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PointsWin")
+                        .HasColumnType("int");
+
                     b.Property<string>("TeamLogo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

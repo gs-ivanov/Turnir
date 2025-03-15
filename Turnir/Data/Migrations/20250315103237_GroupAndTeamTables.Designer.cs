@@ -10,7 +10,7 @@ using Turnir.Data;
 namespace Turnir.Data.Migrations
 {
     [DbContext(typeof(TurnirDbContext))]
-    [Migration("20250313175228_GroupAndTeamTables")]
+    [Migration("20250315103237_GroupAndTeamTables")]
     partial class GroupAndTeamTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -262,6 +262,12 @@ namespace Turnir.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("PointsLost")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PointsWin")
+                        .HasColumnType("int");
 
                     b.Property<string>("TeamLogo")
                         .IsRequired()

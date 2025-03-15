@@ -1,7 +1,6 @@
 ﻿namespace Turnir.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Turnir.Data;
@@ -16,9 +15,60 @@
         {
             this.data = data;
         }
-        public IActionResult Add()=>  View(new AddTeamFormModel
+        public IActionResult All([FromQuery] AllTeamsQueryModel query)
         {
-            Groups=this.GetTeamGroups()
+            var teamsQuery = this.data.Teams.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(query.Name))
+            {
+                teamsQuery = teamsQuery.Where(t => t.Name == query.Name);
+            }
+
+            if (!string.IsNullOrWhiteSpace(query.SearchTerm))
+            {
+                teamsQuery = teamsQuery.Where(t => (t.Name + " " + t.City).ToLower().Contains(query.SearchTerm.ToLower()) || t.Description.ToLower().Contains(query.SearchTerm.ToLower()));
+            }
+
+            teamsQuery = query.Sorting switch
+            {
+                TeamSorting.Year => teamsQuery.OrderByDescending(t => t.Year),
+                TeamSorting.NameAndCity => teamsQuery.OrderBy(t => t.Name).ThenBy(t => t.City),
+                TeamSorting.DateCreated or _ => teamsQuery.OrderByDescending(t => t.Id)
+            };
+
+            var totalTeams = teamsQuery.Count();
+
+            var teams = teamsQuery
+                .Skip((query.CurrentPage - 1) * AllTeamsQueryModel.TeamsPerPage)
+                .Take(AllTeamsQueryModel.TeamsPerPage)
+                .Select(t => new TeamListingViewModel
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    City = t.City,
+                    Year = t.Year,
+                    TeamLogo = t.TeamLogo,
+                    Group = t.Group.Name
+                })
+                 .ToList();
+
+            var teamNames = this.data
+                .Teams
+                .Select(t => t.Name)
+                .Distinct()
+                .OrderBy(nm => nm)
+                .ToList();
+
+            query.TotalTeams = totalTeams;
+            query.Names = teamNames;
+            query.Teams = teams;
+
+            return View(query);
+        }
+
+        public IActionResult Add() => View(new AddTeamFormModel
+        {
+            Groups = this.GetTeamGroups()
         });
 
         [HttpPost]
@@ -49,7 +99,7 @@
             this.data.Teams.Add(teamData);
             this.data.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(All));
 
         }
 

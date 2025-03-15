@@ -31,6 +31,8 @@ namespace Turnir.Data.Migrations
                     TeamLogo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Year = table.Column<int>(type: "int", nullable: false),
                     IsPublic = table.Column<bool>(type: "bit", nullable: false),
+                    PointsWin = table.Column<int>(type: "int", nullable: false),
+                    PointsLost = table.Column<int>(type: "int", nullable: false),
                     GroupId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
