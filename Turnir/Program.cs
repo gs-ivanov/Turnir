@@ -13,5 +13,6 @@ namespace Turnir
                 .CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder => webBuilder
                 .UseStartup<Startup>());
+        // Test added to WorkBench
     }
 }
