@@ -13,8 +13,6 @@
         [MaxLength(NameMaxLength)]
         public string Name { get; set; }
 
-        public int TeamId { get; init; }
-
         [Required]
         [MaxLength(PhoneNumberMaxLength)]
         public string PhoneNumber { get; set; }

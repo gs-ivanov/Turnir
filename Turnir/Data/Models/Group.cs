@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using static DataConstants.Group;
+
     public class Group
     {
         public int Id { get; init; }
@@ -12,6 +13,6 @@
         [MaxLength(NameMaxLength)]
         public string Name { get; set; }
 
-        public IEnumerable<Team> Teams { get; set; } = new List<Team>();
+        public IEnumerable<Team> Teams { get; init; } = new List<Team>();
     }
 }

@@ -10,8 +10,8 @@ using Turnir.Data;
 namespace Turnir.Data.Migrations
 {
     [DbContext(typeof(TurnirDbContext))]
-    [Migration("20250315103237_GroupAndTeamTables")]
-    partial class GroupAndTeamTables
+    [Migration("20250316055824_TrenerTable")]
+    partial class TrenerTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -229,7 +229,9 @@ namespace Turnir.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.HasKey("Id");
 
@@ -273,6 +275,9 @@ namespace Turnir.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TrenerId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
@@ -280,7 +285,38 @@ namespace Turnir.Data.Migrations
 
                     b.HasIndex("GroupId");
 
+                    b.HasIndex("TrenerId");
+
                     b.ToTable("Teams");
+                });
+
+            modelBuilder.Entity("Turnir.Data.Models.Trener", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Treners");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -342,10 +378,32 @@ namespace Turnir.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Turnir.Data.Models.Trener", "Trener")
+                        .WithMany("Teams")
+                        .HasForeignKey("TrenerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Group");
+
+                    b.Navigation("Trener");
+                });
+
+            modelBuilder.Entity("Turnir.Data.Models.Trener", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithOne()
+                        .HasForeignKey("Turnir.Data.Models.Trener", "UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Turnir.Data.Models.Group", b =>
+                {
+                    b.Navigation("Teams");
+                });
+
+            modelBuilder.Entity("Turnir.Data.Models.Trener", b =>
                 {
                     b.Navigation("Teams");
                 });

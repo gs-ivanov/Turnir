@@ -1,10 +1,8 @@
 ﻿namespace Turnir.Data
 {
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
     using Turnir.Data.Models;
 
     public class TurnirDbContext : IdentityDbContext
@@ -18,6 +16,8 @@
 
         public DbSet<Group> Groups { get; init; }
 
+        public DbSet<Trener> Treners { get; init; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -26,6 +26,20 @@
                 .HasOne(t => t.Group)
                 .WithMany(t => t.Teams)
                 .HasForeignKey(t => t.GroupId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<Team>()
+                .HasOne(t => t.Trener)
+                .WithMany(d => d.Teams)
+                .HasForeignKey(t => t.TrenerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<Trener>()
+                .HasOne<IdentityUser>()
+                .WithOne()
+                .HasForeignKey<Trener>(t => t.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);
