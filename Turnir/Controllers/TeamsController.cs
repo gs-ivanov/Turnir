@@ -1,10 +1,12 @@
 ﻿namespace Turnir.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
     using System.Linq;
     using Turnir.Data;
     using Turnir.Data.Models;
+    using Turnir.Infrastructure;
     using Turnir.Models.Teams;
 
     public class TeamsController : Controller
@@ -12,9 +14,8 @@
         private readonly TurnirDbContext data;
 
         public TeamsController(TurnirDbContext data)
-        {
-            this.data = data;
-        }
+            =>this.data = data;
+        
         public IActionResult All([FromQuery] AllTeamsQueryModel query)
         {
             var teamsQuery = this.data.Teams.AsQueryable();
@@ -48,8 +49,8 @@
                     City = t.City,
                     Year = t.Year,
                     TeamLogo = t.TeamLogo,
-                    PointsWin=t.PointsWin,
-                    PointsLost=t.PointsLost,
+                    PointsWin = t.PointsWin,
+                    PointsLost = t.PointsLost,
                     Group = t.Group.Name
                 })
                  .ToList();
@@ -68,14 +69,29 @@
             return View(query);
         }
 
-        public IActionResult Add() => View(new AddTeamFormModel
+        [Authorize]
+        public IActionResult Add()
         {
-            Groups = this.GetTeamGroups()
-        });
+            if (this.UserIsTrener()==0)
+            {
+                return RedirectToAction(nameof(TrenersController.Become), "Treners");
+            }
+
+            return View(new AddTeamFormModel
+            {
+                Groups = this.GetTeamGroups()
+            });
+        }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Add(AddTeamFormModel team)
         {
+            if (this.UserIsTrener()==0)
+            {
+                return RedirectToAction(nameof(TrenersController.Become), "Treners");
+            }
+
             if (!this.data.Groups.Any(g => g.Id == team.GroupId))
             {
                 this.ModelState.AddModelError(nameof(team.GroupId), "Group does not exist.");
@@ -95,9 +111,10 @@
                 Description = team.Description,
                 TeamLogo = team.TeamLogo,
                 Year = team.Year,
-                PointsWin=team.PointsWin,
-                PointsLost=team.PointsLost,
+                PointsWin = team.PointsWin,
+                PointsLost = team.PointsLost,
                 GroupId = team.GroupId,
+                TrenerId=team.TrenerId
             };
 
             this.data.Teams.Add(teamData);
@@ -106,6 +123,13 @@
             return RedirectToAction(nameof(All));
 
         }
+
+        private int UserIsTrener()
+            => (this.data
+                .Treners
+                .Where(t => t.UserId == this.User.GetId())
+                .Select(t=>t.Id)
+                .FirstOrDefault());
 
         private IEnumerable<TeamGroupViewModel> GetTeamGroups()
              => this.data

@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
+    using Turnir.Models.Treners;
     using static Data.DataConstants.Team;
 
     public class AddTeamFormModel
@@ -41,6 +41,11 @@
         public int GroupId { get; init; }
 
         public IEnumerable<TeamGroupViewModel> Groups { get; set; }
+
+        [Display(Name = "Trener")]
+        public int TrenerId { get; init; }
+
+        public IEnumerable<BecomeTrenerFormModel> Trener { get; set; }
 
     }
 }

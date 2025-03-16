@@ -1,14 +1,14 @@
 ﻿@model IndexViewModel
 
 @{
-    ViewData["Title"] = "Welcome!";
+    ViewBag.Title = "Welcome!";
 }
 
 
 @if (!Model.Teams.Any())
 {
     <div class="jumbotron">
-        <h1 class="display-4">Welcome to the national socker tournament!</h1>
+        <h1 class="display-4">Welcome to the national soccer tournament!</h1>
         <p class="lead">There are no teams in the system currently available so why don't you just add one?</p>
         <hr class="my-4">
         <p class="lead">

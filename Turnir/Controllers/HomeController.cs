@@ -26,6 +26,7 @@
                 .OrderByDescending(t => t.Id)
                 .Select(t => new TeamIndexViewModel
                 {
+                    Id=t.Id,
                     Name = t.Name,
                     City = t.City,
                     Year = t.Year,

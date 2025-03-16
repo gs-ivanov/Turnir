@@ -32,13 +32,9 @@
 
             data.Groups.AddRange(new[]
             {
-                new Group { Name = "Mini" },
-                new Group { Name = "Economy" },
-                new Group { Name = "Midsize" },
-                new Group { Name = "Large" },
-                new Group { Name = "SUV" },
-                new Group { Name = "Vans" },
-                new Group { Name = "Luxury" },
+                new Group { Name = "Група А" },
+                new Group { Name = "Група Б северна" },
+                new Group { Name = "Група Б южна" },
             });
 
             data.SaveChanges();
