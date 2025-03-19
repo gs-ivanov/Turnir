@@ -6,20 +6,22 @@
     using Turnir.Data;
     using Turnir.Models;
     using Turnir.Models.Home;
+    using Turnir.Services.Statistics;
 
     public class HomeController : Controller
     {
+        private readonly IStatisticsService statistics;
         private readonly TurnirDbContext data;
 
-        public HomeController(TurnirDbContext data)
+        public HomeController(IStatisticsService statistics,TurnirDbContext data)
         {
+            this.statistics = statistics;
             this.data = data;
         }
 
 
         public IActionResult Index() 
         {
-            var totalTeams = this.data.Teams.Count();
 
             var teams = this.data
                 .Teams
@@ -37,9 +39,12 @@
                 .Take(3)
                 .ToList();
 
+            var totalStatistics = this.statistics.Total();
+
             return View(new IndexViewModel
             {
-                TotalTeams=totalTeams,
+                TotalTeams=totalStatistics.TotalTeams,
+                TotalUsers=totalStatistics.TotalUsers,
                 Teams=teams
             });
         }

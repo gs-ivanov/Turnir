@@ -1,6 +1,5 @@
 namespace Turnir
 {
-    using Turnir.Data;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -8,7 +7,10 @@ namespace Turnir
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Turnir.Data;
     using Turnir.Infrastructure;
+    using Turnir.Services.Statistics;
+    using Turnir.Services.Teams;
 
     public class Startup
     {
@@ -22,7 +24,7 @@ namespace Turnir
             services
                 .AddDbContext<TurnirDbContext>(options => options
                 .UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
-            
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services
@@ -35,8 +37,10 @@ namespace Turnir
                 })
                 .AddEntityFrameworkStores<TurnirDbContext>();
 
-            services
-                .AddControllersWithViews();
+            services.AddControllersWithViews();
+
+            services.AddTransient<IStatisticsService, StatisticsService>();
+            services.AddTransient<ITeamService, TeamService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

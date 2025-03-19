@@ -1,4 +1,4 @@
-﻿namespace Turnir.Models.Teams
+﻿namespace Turnir.Models
 {
     public enum TeamSorting
     {
