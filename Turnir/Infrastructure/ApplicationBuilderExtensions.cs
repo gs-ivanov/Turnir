@@ -7,6 +7,8 @@
     using Turnir.Data;
     using Turnir.Data.Models;
 
+    using static WebConstants;
+
     public static class ApplicationBuilderExtensions
     {
         public static IApplicationBuilder PrepareDatabase(

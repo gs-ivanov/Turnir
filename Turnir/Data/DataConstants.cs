@@ -11,7 +11,7 @@
         {
             public const int FullNameMinLength = 5;
             public const int FullNameMaxLength = 40;
-            public const int PasswordMinLength = 6;
+            public const int PasswordMinLength = 4;
             public const int PasswordMaxLength = 100;
         }
 

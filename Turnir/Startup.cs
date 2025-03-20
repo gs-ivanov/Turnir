@@ -9,6 +9,7 @@ namespace Turnir
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Turnir.Data;
+    using Turnir.Data.Models;
     using Turnir.Infrastructure;
     using Turnir.Services.Statistics;
     using Turnir.Services.Teams;
@@ -30,13 +31,14 @@ namespace Turnir
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services
-                .AddDefaultIdentity<IdentityUser>(options =>
+                .AddDefaultIdentity<User>(options =>
                 {
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
                 })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<TurnirDbContext>();
 
             services.AddControllersWithViews(options =>
