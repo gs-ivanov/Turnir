@@ -24,7 +24,7 @@
         [Authorize]
         public IActionResult Become(BecomeTrenerFormModel trener)
         {
-            var userId = this.User.GetId();
+            var userId = this.User.Id();
 
             var userIsAlreadyTrener = this.data
                 .Treners

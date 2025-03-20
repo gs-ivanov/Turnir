@@ -1,6 +1,6 @@
-﻿namespace Turnir.Models.Teams
+﻿namespace Turnir.Services.Teams
 {
-    public class TeamGroupViewModel
+    public class TeamGroupServiceModel
     {
         public int Id { get; init; }
 

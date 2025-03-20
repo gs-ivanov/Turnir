@@ -1,0 +1,16 @@
+﻿@model IEnumerable<TeamServiceModel>
+
+<div class="row">
+    @foreach (var team in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img class="card-img-top" src="@team.TeamLogo" alt="@team.Name @team.City - @team.Year (@team.GroupName)">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-center">@team.Year  @team.Name @team.City (@team.GroupName)</h5>
+                    <a asp-controller="Teams" asp-action="Details" asp-route-id="@team.Id" class="btn btn-primary">View More</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

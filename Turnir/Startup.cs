@@ -3,6 +3,7 @@ namespace Turnir
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,7 @@ namespace Turnir
     using Turnir.Infrastructure;
     using Turnir.Services.Statistics;
     using Turnir.Services.Teams;
+    using Turnir.Services.Treners;
 
     public class Startup
     {
@@ -37,10 +39,14 @@ namespace Turnir
                 })
                 .AddEntityFrameworkStores<TurnirDbContext>();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+            });
 
             services.AddTransient<IStatisticsService, StatisticsService>();
             services.AddTransient<ITeamService, TeamService>();
+            services.AddTransient<ITrenerService, TrenerService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

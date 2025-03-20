@@ -4,9 +4,10 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using Turnir.Models.Treners;
+    using Turnir.Services.Teams;
     using static Data.DataConstants.Team;
 
-    public class AddTeamFormModel
+    public class TeamFormModel
     {
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
@@ -40,7 +41,7 @@
         [Display(Name = "Group")]
         public int GroupId { get; init; }
 
-        public IEnumerable<TeamGroupViewModel> Groups { get; set; }
+        public IEnumerable<TeamGroupServiceModel> Groups { get; set; }
 
         [Display(Name = "Trener")]
         public int TrenerId { get; init; }

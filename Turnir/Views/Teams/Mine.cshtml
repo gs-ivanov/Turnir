@@ -1,0 +1,13 @@
+﻿@model IEnumerable<TeamServiceModel>
+
+<h1>Trener of @Model.FirstOrDefault().Name - @Model.FirstOrDefault().GroupName</h1>
+
+@{ ViewBag.Title = "My Team";
+   ViewBag.AllowCarEdit = true;
+ }
+
+@if (!Model.Any())
+{
+<h2 class="text-center">You do not have any cars yet!</h2>}
+
+<partial name="_TeamsPartial" model="@Model" />

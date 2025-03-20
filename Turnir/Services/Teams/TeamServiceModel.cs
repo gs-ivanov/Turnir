@@ -12,6 +12,6 @@
 
         public int Year { get; init; }
 
-        public string Group { get; init; }
+        public string GroupName { get; init; }
     }
 }
