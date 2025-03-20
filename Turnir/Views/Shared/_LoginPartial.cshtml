@@ -6,7 +6,10 @@
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
-    {
+     {
+        //var userId = User.Id();
+        //var userIsTrener = Treners.
+
        <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Treners" asp-action="Become">Become Trener</a>
         </li>
