@@ -2,15 +2,15 @@
 
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
-@inject ITrenerService Dealers
+@inject ITrenerService Treners
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
         var userId = User.Id();
-        var userIsDealer = Dealers.IsTrener(userId);
+        var userIsTrener = Treners.IsTrener(userId);
 
-        @if (userIsDealer)
+        @if (userIsTrener)
         {
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Cars" asp-action="Mine">My Cars</a>
